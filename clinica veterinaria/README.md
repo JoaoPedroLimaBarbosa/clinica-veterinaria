@@ -200,7 +200,7 @@ clinica-veterinaria/
 
 ### Tutores
 ![Tutores](prints/ecluirTutores.jpeg)
-![Tutores](prints/ecluirTutores.jpeg)
+![Tutores](prints/editarPet.jpeg)
 
 
 ### Pets
@@ -211,9 +211,6 @@ clinica-veterinaria/
 
 ### terminal 
 ![terminal](prints/terminal.jpeg)
-![terminal](prints/tutor.jpeg)
-
-
 
 
 
