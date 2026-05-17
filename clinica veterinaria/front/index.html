@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VetCare — Clínica Veterinária</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🐾</span>
+        <span class="logo-text">VetCare</span>
+      </div>
+      <nav class="nav">
+        <button class="nav-btn active" onclick="showPage('dashboard')">Dashboard</button>
+        <button class="nav-btn" onclick="showPage('tutores')">Tutores</button>
+        <button class="nav-btn" onclick="showPage('pets')">Pets</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast"></div>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- DASHBOARD -->
+    <section id="page-dashboard" class="page active">
+      <div class="dashboard-hero">
+        <h1 class="hero-title">Bem-vindo à <span>VetCare</span></h1>
+        <p class="hero-sub">Gerencie tutores e seus pets com cuidado e agilidade.</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">👤</div>
+          <div class="stat-info">
+            <span class="stat-num" id="total-tutores">—</span>
+            <span class="stat-label">Tutores cadastrados</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🐶</div>
+          <div class="stat-info">
+            <span class="stat-num" id="total-pets">—</span>
+            <span class="stat-label">Pets cadastrados</span>
+          </div>
+        </div>
+      </div>
+      <div class="quick-actions">
+        <button class="btn btn-primary" onclick="showPage('tutores'); openModal('modal-tutor')">+ Novo Tutor</button>
+        <button class="btn btn-secondary" onclick="showPage('pets'); openModal('modal-pet')">+ Novo Pet</button>
+      </div>
+    </section>
+
+    <!-- TUTORES -->
+    <section id="page-tutores" class="page">
+      <div class="page-header">
+        <h2 class="page-title">Tutores</h2>
+        <button class="btn btn-primary" onclick="openModal('modal-tutor')">+ Novo Tutor</button>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="search-tutor" placeholder="🔍 Buscar tutor por nome..." oninput="filtrarTutores()" />
+      </div>
+      <div id="lista-tutores" class="cards-grid">
+        <div class="loading">Carregando tutores...</div>
+      </div>
+    </section>
+
+    <!-- PETS -->
+    <section id="page-pets" class="page">
+      <div class="page-header">
+        <h2 class="page-title">Pets</h2>
+        <button class="btn btn-primary" onclick="abrirModalPet()">+ Novo Pet</button>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="search-pet" placeholder="🔍 Buscar pet por nome..." oninput="filtrarPets()" />
+      </div>
+      <div id="lista-pets" class="cards-grid">
+        <div class="loading">Carregando pets...</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL TUTOR -->
+  <div id="modal-tutor" class="modal-overlay" onclick="closeModalOutside(event, 'modal-tutor')">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-tutor-title">Novo Tutor</h3>
+        <button class="modal-close" onclick="closeModal('modal-tutor')">✕</button>
+      </div>
+      <form id="form-tutor" onsubmit="salvarTutor(event)">
+        <input type="hidden" id="tutor-id" />
+        <div class="form-group">
+          <label>Nome completo *</label>
+          <input type="text" id="tutor-nome" required placeholder="Ex: João Silva" />
+        </div>
+        <div class="form-group">
+          <label>Telefone *</label>
+          <input type="text" id="tutor-telefone" required placeholder="(99) 99999-9999" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="tutor-email" placeholder="email@exemplo.com" />
+        </div>
+        <div class="form-group">
+          <label>Endereço</label>
+          <input type="text" id="tutor-endereco" placeholder="Rua, número, bairro" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="closeModal('modal-tutor')">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL PET -->
+  <div id="modal-pet" class="modal-overlay" onclick="closeModalOutside(event, 'modal-pet')">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-pet-title">Novo Pet</h3>
+        <button class="modal-close" onclick="closeModal('modal-pet')">✕</button>
+      </div>
+      <form id="form-pet" onsubmit="salvarPet(event)">
+        <input type="hidden" id="pet-id" />
+        <div class="form-group">
+          <label>Nome do pet *</label>
+          <input type="text" id="pet-nome" required placeholder="Ex: Rex" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Espécie *</label>
+            <select id="pet-especie" required>
+              <option value="">Selecione...</option>
+              <option value="Cachorro">🐶 Cachorro</option>
+              <option value="Gato">🐱 Gato</option>
+              <option value="Pássaro">🐦 Pássaro</option>
+              <option value="Coelho">🐰 Coelho</option>
+              <option value="Hamster">🐹 Hamster</option>
+              <option value="Réptil">🦎 Réptil</option>
+              <option value="Outro">🐾 Outro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Raça</label>
+            <input type="text" id="pet-raca" placeholder="Ex: Labrador" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Idade (anos)</label>
+            <input type="number" id="pet-idade" min="0" max="50" placeholder="Ex: 3" />
+          </div>
+          <div class="form-group">
+            <label>Peso (kg)</label>
+            <input type="number" id="pet-peso" step="0.1" min="0" placeholder="Ex: 12.5" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Tutor responsável *</label>
+          <select id="pet-tutor" required>
+            <option value="">Selecione o tutor...</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="closeModal('modal-pet')">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL CONFIRMAÇÃO EXCLUSÃO -->
+  <div id="modal-confirmar" class="modal-overlay" onclick="closeModalOutside(event, 'modal-confirmar')">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>Confirmar Exclusão</h3>
+        <button class="modal-close" onclick="closeModal('modal-confirmar')">✕</button>
+      </div>
+      <p id="confirm-msg" style="padding: 0 1.5rem; color: var(--text-muted);">Tem certeza que deseja excluir?</p>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="closeModal('modal-confirmar')">Cancelar</button>
+        <button class="btn btn-danger" id="btn-confirmar-exclusao">Excluir</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
