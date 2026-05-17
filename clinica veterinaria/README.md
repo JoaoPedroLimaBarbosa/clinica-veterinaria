@@ -189,13 +189,30 @@ clinica-veterinaria/
 ## 📸 Prints do Sistema
 
 ### Dashboard
-![Dashboard](prints/BandoDados.png)
+![Dashboard](prints/dashboard.jpeg)
+![Dashboard](prints/pesquisa.jpeg)
+
+
+
+### Supabase
+![supabase](prints/BandoDados.png)
+![supabase](prints/bancoDados.png)
 
 ### Tutores
-![Tutores](prints/tutores.png)
+![Tutores](prints/ecluirTutores.jpeg)
+![Tutores](prints/ecluirTutores.jpeg)
+
 
 ### Pets
-![Pets](prints/pets.png)
+![Pets](prints/editarPet.jpeg)
+![Pets](prints/novoPet.jpeg)
+![Pets](prints/pets.jpeg)
+![Pets](prints/petsCadastrado.jpeg)
+
+### terminal 
+![terminal](prints/terminal.jpeg)
+![terminal](prints/tutor.jpeg)
+
 
 
 
