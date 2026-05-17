@@ -188,14 +188,14 @@ clinica-veterinaria/
 
 ## 📸 Prints do Sistema
 
-> *(Adicione aqui prints do sistema funcionando)*
+### Dashboard
+![Dashboard](prints/BandoDados.png)
 
+### Tutores
+![Tutores](prints/tutores.png)
 
-
-
-
-
-
+### Pets
+![Pets](prints/pets.png)
 
 
 
